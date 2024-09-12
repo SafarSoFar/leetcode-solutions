@@ -1,15 +1,15 @@
 class Solution {
 public:
     int countConsistentStrings(string allowed, vector<string>& words) {
-        int letters[26];
+        vector<bool> letters(26,false);
         int ans = 0;
         for(int i = 0; i < allowed.size();i++){
-            letters[allowed[i]-'a']++;
+            letters[allowed[i]-'a'] = true;
         }
         for(int i = 0; i < words.size();i++){
             bool isValid = true;
             for(int j = 0; j < words[i].size();j++){
-                if(letters[words[i][j] - 'a'] == 0){
+                if(letters[words[i][j] - 'a'] != true){
                     isValid = false;
                     break;
                 }
