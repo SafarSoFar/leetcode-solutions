@@ -1,11 +1,22 @@
 class Solution {
 public:
     vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
-        int n = queries.size();
-        vector<int> ans(n);
-        for(int i = 0; i < n;i++){
-            for(int j = queries[i][0]; j <= queries[i][1]; j++){
-                ans[i] ^= arr[j];
+        int n = arr.size();
+        int prefixSum[n];
+        prefixSum[0] = arr[0];
+        for(int i = 1; i < n;i++){
+            prefixSum[i] =  arr[i] ^ prefixSum[i-1];
+        }
+        int m = queries.size();
+        vector<int> ans(m);
+        for(int i = 0; i < m;i++){
+            int l = queries[i][0];
+            int r = queries[i][1];
+            if(l == 0){
+                ans[i] = prefixSum[r];
+            }
+            else{
+                ans[i] = prefixSum[r] ^ prefixSum[l-1];
             }
             
         }
