@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+        int level = -1;
+        while(!q.empty()){
+            level++;
+            int curLevelLength = q.size();
+            vector<int> vecVals(curLevelLength);
+            vector<TreeNode*> vecNodes(curLevelLength);
+            for(int i = 0; i < curLevelLength; i++){
+                TreeNode* cur = q.front();
+                vecNodes[i] = cur;
+                q.pop();
+                vecVals[i] = cur->val;
+                if(cur->left){
+                    q.push(cur->left);
+                }
+                if(cur->right){
+                    q.push(cur->right);
+                }
+            }
+            if(level % 2 != 0){
+                std::reverse(vecVals.begin(), vecVals.end());
+                for(int i = 0; i < curLevelLength; i++){
+                    vecNodes[i]->val = vecVals[i];
+                }
+            }
+        }
+        return root;
+    }
+};
