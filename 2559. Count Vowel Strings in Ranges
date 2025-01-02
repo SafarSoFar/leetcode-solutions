@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+        int n = words.size();
+        unordered_set<char> s = {'a','e','i', 'o', 'u'};
+        vector<int> win(n);
+        vector<int> ans;
+        for(int i = 0; i < n; i++){
+            if(s.contains(words[i][0]) && s.contains(words[i][words[i].size()-1])){
+                win[i] = 1;
+            }
+            if(i > 0){
+                win[i] += win[i-1];
+            }
+
+        }
+        for(int i = 0; i < queries.size(); i++){
+            int cur = 0;
+            int l = queries[i][0];
+            int r = queries[i][1];
+            cur = win[r];
+            if(l-1 >= 0){
+                cur -= win[l-1];
+            }
+
+            ans.push_back(cur);
+        }
+        return ans;
+    }
+};
