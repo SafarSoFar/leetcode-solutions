@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string> stringMatching(vector<string>& words) {
+        int n = words.size();
+        vector<string> ans;
+        unordered_set<int> alreadyValid;
+        for(int i = 0; i < n;i++){
+            for(int j = 0; j < n; j++){
+                if(i == j)
+                    continue;
+                if(!alreadyValid.contains(j) && words[i].find(words[j]) != string::npos){
+                    ans.push_back(words[j]);
+                    alreadyValid.insert(j);
+                }
+            }
+        }
+        return ans;
+    }
+};
