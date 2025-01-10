@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+        int mp[26] = {0};
+        vector<string> ans;
+        int mapSize = 0;
+        for(string& word : words2){
+            int curMp[26] = {0};
+            for(char& ch : word){
+                int index = ch-'a';
+                if(mp[index] == 0){
+                    mapSize++;
+                }
+                curMp[index]++;
+                if(mp[index] < curMp[index]){
+                    mp[index] = curMp[index];
+                }
+
+            }
+        }
+
+        for(string& word : words1){
+            int curMp[26];
+            std::memcpy(curMp, mp, sizeof(mp));
+            int zeros = 0;
+            for(char& ch : word){
+                int index = ch-'a';
+                curMp[index]--;
+                if(curMp[index] == 0){
+                    zeros++;
+                }  
+            }
+            if(zeros == mapSize){
+                ans.push_back(word);
+            }
+        }
+        return ans;
+    }
+};
