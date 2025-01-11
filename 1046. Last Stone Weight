@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int lastStoneWeight(vector<int>& stones) {
+        
+        while(stones.size() > 1){
+            sort(stones.begin(), stones.end(), std::greater<>());
+            int y = stones[0];
+            int x = stones[1];
+            if(x == y){
+                stones.erase(stones.begin());
+                stones.erase(stones.begin());
+            }
+            else if(y > x){
+                stones[0] -= x;
+                stones.erase(stones.begin()+1);
+            }
+        }
+        return stones.size() ? stones[0] : 0;
+    }
+};
