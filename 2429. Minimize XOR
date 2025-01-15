@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int minimizeXor(int num1, int num2) {
+        string x = "";
+        int num2SetBits = 0;
+        string num1Bin = std::bitset<32>(num1).to_string(); 
+        while(num2 > 0){
+            num2SetBits += num2 % 2 == 0 ? 0 : 1;
+            num2 /=2;
+        }
+
+        for(int i = 0; i < 32; i++){
+            if(num1Bin[i] == '1' && num2SetBits > 0){
+                num2SetBits--;
+                x += '1';
+            }
+            else
+                x += '0';
+        }
+
+        int i = 31;
+        while(num2SetBits > 0){
+            if(x[i] != '1'){
+                x[i] = '1';
+                num2SetBits--;
+            }
+            i--;
+        }
+
+        return stoi(x,0,2);
+    }
+};
