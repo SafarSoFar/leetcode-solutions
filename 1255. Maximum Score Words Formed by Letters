@@ -2,7 +2,6 @@ class Solution {
 public:
     int max = 0;
     vector<string> words;
-    vector<char> letters;
     vector<int> score;
     int n = 0;
     int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
