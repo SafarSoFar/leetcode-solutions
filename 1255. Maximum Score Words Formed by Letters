@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int max = 0;
+    vector<string> words;
+    vector<char> letters;
+    vector<int> score;
+    int n = 0;
+    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
+        this->words = words;
+        this->n = words.size();
+        this->score = score;
+        unordered_map<int,int> freq;
+        for(int i = 0; i < letters.size(); i++){
+            freq[letters[i]]++;
+        }
+        backtracking(0, freq, 0);
+        return this->max;
+    }
+
+    void backtracking(int curScore, unordered_map<int,int> freq, int index){
+
+        this->max = std::max(curScore, this->max);
+        if(index >= n){
+            return;
+        }
+
+        // take cur word
+        unordered_map<int,int> nextFreq = freq;
+        int nextScore = curScore;
+        int wordSize = this->words[index].size();
+        for(int i = 0; i < wordSize;i++){
+            char ch = this->words[index][i];
+            if(nextFreq[ch] > 0){
+                nextScore += this->score[ch-'a'];
+                nextFreq[ch]--;
+            }
+            else{
+                break;
+            }
+
+            if(i >= wordSize-1){
+                backtracking(nextScore, nextFreq, index+1);
+            }
+        }
+        backtracking(curScore, freq, index+1);
+        
+    }
+};
