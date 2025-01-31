@@ -6,7 +6,6 @@ public:
     int largestIsland(vector<vector<int>>& grid) {
         this->n = grid.size();
         int ans = 0;
-        vector<vector<bool>> vis(n, vector<bool>(n));
         vector<vector<int>> islandIndices(n, vector<int>(n, -1));
         for (int i = 0; i < this->n; i++) {
             for (int j = 0; j < this->n; j++) {
