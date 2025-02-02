@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        bool isValid = true;
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            isValid = true;
+            for(int j = 0; j < n-1; j++){
+                int curInd = (i+j)%n;
+                int nextInd = (i+j+1)%n;
+                if(nums[curInd] > nums[nextInd]){
+                    isValid = false;
+                    break;
+                }
+            }
+            if(isValid)
+                return true;
+        }
+        return false;
+    }
+};
