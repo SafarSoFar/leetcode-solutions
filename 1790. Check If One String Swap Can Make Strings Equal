@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool areAlmostEqual(string s1, string s2) {
+        vector<int> unequalIndices;
+        for(int i = 0; i < s1.size(); i++){
+
+            if(s1[i] != s2[i]){
+                unequalIndices.push_back(i);
+                // if more than 2 characters are unequal 
+                // then no need for more checks, because we cannot make only one swap
+                if(unequalIndices.size() > 2)
+                    return false;
+                
+            }
+        }
+
+        int size = unequalIndices.size();
+        // all characters are the equal - good
+        if(size == 0)
+            return true;
+        // cannot swap with one unequal character, so false
+        else if(size == 1)
+            return false;
+        // swapping two unequal characters, check for string equality 
+        else if(size == 2){
+            // swapping characters in place
+            std::swap(s1[unequalIndices[0]],s1[unequalIndices[1]]);
+            return s1 == s2;
+        }
+        return false;
+    }
+};
