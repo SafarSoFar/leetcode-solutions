@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> queryResults(int limit, vector<vector<int>>& queries) {
+        int n = queries.size();
+        unordered_map<int,int> ballsColor;
+        unordered_map<int,int> colorFreq;
+        vector<int> ans(n);
+        int cur = 0;
+        for(int i = 0; i < n; i++){
+
+            int ballInd = queries[i][0];
+            int newColor = queries[i][1];
+            int oldBallColor = ballsColor[ballInd];
+
+            if(oldBallColor != 0){
+                colorFreq[oldBallColor]--;
+                if(colorFreq[oldBallColor] == 0){
+                    cur--;
+                }
+            }
+
+            ballsColor[ballInd] = newColor;
+            if(colorFreq[newColor] == 0){
+                cur++;
+            }
+            colorFreq[newColor]++;
+            ans[i] = cur;
+        }
+        return ans;
+    }
+};
