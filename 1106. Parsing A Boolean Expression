@@ -1,0 +1,66 @@
+class Solution {
+public:
+
+    bool parseBoolExpr(string expression) {
+        return recur(expression);
+    }
+    bool recur(string expr){
+        char firstSymbol = expr[0];
+        if(firstSymbol == '&' || firstSymbol == '|' || firstSymbol == '!'){
+            string body = std::string(expr.begin()+2, expr.begin() + expr.size()-1); 
+            vector<string> bodyVec = split(body);
+            if(firstSymbol == '&'){
+                for(auto& nBody : bodyVec){
+                    if(!recur(nBody)){
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else if(firstSymbol == '|'){
+                for(auto& nBody : bodyVec){
+                    if(recur(nBody)){
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else if(firstSymbol == '!'){
+                return !recur(body);
+            }                 
+        }
+        else{
+            if(firstSymbol == 't'){
+                return true;
+            }
+            else
+                return false;
+            
+        }
+        return false;
+    }
+    vector<string> split(string str){
+        int unclosedBrackets = 0;
+        int subIndex = 0;
+        int subSize = 1;
+        vector<string> res;
+        for(int i = 0; i < str.size(); i++){
+            subSize++;
+            if(str[i] == '(')
+                unclosedBrackets++;
+            else if(str[i] == ')')
+                unclosedBrackets--;
+            
+            if((str[i] == ',' && unclosedBrackets == 0) || i+1 >= str.size()){
+                string body = std::string(str.begin()+subIndex, str.begin() + subIndex + subSize); 
+                subIndex = i+1;
+                subSize = 0;
+                res.push_back(body);
+            }
+
+        }
+        if(res.size() == 0)
+            res.push_back(str);
+        return res;
+    }
+};
