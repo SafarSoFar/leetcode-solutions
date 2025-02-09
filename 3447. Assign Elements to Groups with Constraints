@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> assignElements(vector<int>& groups, vector<int>& elements) {
+        unordered_map<int,int> mp;
+        int n = groups.size();
+        vector<int> ans(n, INT_MAX);
+        for(int i = 0; i < elements.size();i++){
+            if(!mp.contains(elements[i])){
+                mp[elements[i]] = i;
+            }
+        }
+        for(int i = 0; i < groups.size();i++){
+            int val = groups[i];
+            int div = INT_MAX;
+            for(int j = 1; j*j <= val; j++){
+                if(val % j == 0 && mp.contains(j)){
+                    div = min(mp[j],div);
+                }
+                if(j != val/j && val%j==0 && mp.contains(val/j)){
+                    div = min(div, mp[val/j]);
+                }
+            }
+            if(div == INT_MAX)
+                ans[i] = -1;
+            else
+                ans[i] = div;
+        }
+        return ans;
+    }
+};
