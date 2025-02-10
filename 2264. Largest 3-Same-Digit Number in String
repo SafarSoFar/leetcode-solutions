@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string largestGoodInteger(string num) {
+        int charCount = 0;
+        char curChar = ' ';
+        int maxAscii = INT_MIN;
+        for(int i = 0; i < num.size(); i++){
+            if(curChar != num[i]){
+                if(charCount >= 3){
+                    if(maxAscii < (int)curChar)
+                        maxAscii = curChar;
+                    
+                }
+                charCount = 1;
+                curChar = num[i];
+            }
+            else
+                charCount++;
+            
+            
+        }
+        if(charCount >= 3){
+            if(maxAscii < (int)curChar)
+                maxAscii = curChar;
+        }
+
+        string ans = "";
+        if(maxAscii == INT_MIN)
+            return ans;
+
+        for(int i = 0; i < 3; i++){
+            ans += maxAscii;
+        }
+        return ans;
+    }
+};
