@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string clearDigits(string s) {   
+        while(s.size()){
+            bool found = false;
+            for(int i = 0; i < s.size()-1; i++){
+                if(isdigit(s[i+1])){
+                    s.erase(s.begin()+i);
+                    s.erase(s.begin()+i);
+                    found = true;
+                    break;
+                }
+            }    
+            if(!found)
+                break;
+        }
+        return s;
+    }
+};
