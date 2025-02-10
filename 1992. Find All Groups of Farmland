@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<vector<int>> land;
+    int m;
+    int n;
+    vector<vector<int>> findFarmland(vector<vector<int>>& land) {
+        this->land = land;
+        m = land.size();
+        n = land[0].size();
+        vector<vector<int>> ans;
+        vector<vector<bool>> isVis(m, vector<bool>(n));
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(land[i][j] == 1 && !isVis[i][j]){
+                    vector<int> coordsVec(4);
+                    dfs(coordsVec, isVis, i,j);
+                    ans.push_back(coordsVec);
+                }
+            }
+        }
+        return ans;
+        
+    }
+
+    void dfs(vector<int>& coordsVec, vector<vector<bool>>& isVis, int i, int j){
+        if(isVis[i][j])
+            return;
+
+        isVis[i][j] = true;
+        
+        if(isPathEmpty(i-1, j) && isPathEmpty(i,j-1)){
+            coordsVec[0] = i;
+            coordsVec[1] = j;
+        }
+        if(isPathEmpty(i+1, j) && isPathEmpty(i,j+1)){
+            coordsVec[2] = i;
+            coordsVec[3] = j;
+        }
+        if(!isPathEmpty(i-1,j))
+            dfs(coordsVec, isVis, i-1, j);
+        if(!isPathEmpty(i+1,j))
+            dfs(coordsVec, isVis, i+1, j);
+        if(!isPathEmpty(i,j-1))
+            dfs(coordsVec, isVis, i, j-1);
+        if(!isPathEmpty(i,j+1))
+            dfs(coordsVec, isVis, i, j+1);
+            
+    }
+
+    bool isPathEmpty(int i, int j){
+        return i < 0 || j < 0 || i >= m || j >= n || land[i][j] == 0;
+    }
+};
