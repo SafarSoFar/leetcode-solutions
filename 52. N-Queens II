@@ -1,0 +1,66 @@
+class Solution {
+public:
+    int ans;
+    int totalNQueens(int n) {
+        if(n == 1){
+            vector<vector<string>> v(1);
+            v[0] = {"Q"};
+            return 1;
+        }
+
+        
+        vector<string> board(n);
+        for(int i = 0; i < n; i++){
+            
+            string str = std::string(n,'.');
+            board[i] = str;
+        }
+        set<pair<int,int>> diag;
+        set<int> col;
+        backtracking(n,0,0, board,diag,col);
+        return ans;
+    }
+
+    void backtracking(int n, int cur_row, int q_count,vector<string> &board, set<pair<int,int>> &diag, set<int> &col){
+        if(cur_row >= n){
+            if(q_count >= n){
+                ans++;
+            }
+            return ;
+        }
+        for(int i = 0; i < n; i++){
+            if(col.find(i) == col.end() && diag.find({cur_row,i}) == diag.end()){
+                vector<string> n_board = board;
+                n_board[cur_row][i] = 'Q';
+                set<int> n_col = col;
+                n_col.insert(i);
+                set<pair<int,int>> n_diag= diag;
+                int k = i-1;
+                //left-bottom
+                for(int j = cur_row+1; j < n && k >= 0; j++){
+                    n_diag.insert({j,k});
+                    k--;
+                }
+                k = i+1;
+                //right-up
+                for(int j = cur_row-1; j >= 0 && k < n; j--){
+                    n_diag.insert({j,k});
+                    k++;
+                }
+                k = i+1;
+                //right-bottom
+                for(int j = cur_row+1; j < n && k < n; j++){
+                    n_diag.insert({j,k});
+                    k++;
+                }
+                k = i-1;
+                //left-up
+                for(int j = cur_row-1; j >= 0 && k >= 0; j--){
+                    n_diag.insert({j,k});
+                    k--;
+                }
+                backtracking(n, cur_row+1,q_count+1,n_board,n_diag,n_col);
+            }
+        }
+    }
+};
