@@ -1,0 +1,64 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        queue<int> q1;
+        queue<int> q2;
+        listToQueue(l1, q1);
+        listToQueue(l2,q2);
+        ListNode* nHead = NULL;
+        ListNode* cur = new ListNode();
+        ListNode* next = NULL;
+        int carry = 0;
+        while(q1.size() || q2.size()){
+            int val1 = 0;
+            int val2 = 0;
+
+            if(q1.size()){
+                val1 = q1.front();
+                q1.pop();
+            }
+            if(q2.size()){
+                val2 = q2.front();
+                q2.pop();
+            }
+            int sum = val1+val2;
+            if(carry > 0){
+                sum += carry;
+                carry = 0;
+            }
+            if(sum >= 10){
+                carry++;
+                sum -= 10;
+            }
+            next = new ListNode(sum);
+            if(nHead == NULL){
+                nHead = next;
+            }
+            cur->next = next;
+            cur = cur->next;
+        }
+        if(carry > 0){
+            next = new ListNode(carry);
+            cur->next = next;
+        }
+        return nHead;
+    }
+
+    void listToQueue(ListNode* head, queue<int>& q){
+        ListNode* cur = head;
+        while(cur){
+            q.push(cur->val);
+            cur = cur->next;
+        }
+    }
+};
