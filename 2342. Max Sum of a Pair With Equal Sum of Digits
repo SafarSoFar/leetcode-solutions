@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maximumSum(vector<int>& nums) {
+        unordered_map<int,pair<int,int>> mp;
+        int maxDigitSum = -1;
+        for(int i = 0; i < nums.size(); i++){
+            int val = nums[i];
+            int digitsSum = 0;
+            while(val){
+                digitsSum += val % 10;
+                val /= 10;
+            }
+            
+            pair<int,int> maxPair = mp[digitsSum];
+            if(nums[i] >= maxPair.second){
+                maxPair.first = maxPair.second;
+                maxPair.second = nums[i];
+            } 
+            else if(nums[i] > maxPair.first){
+                maxPair.first = nums[i];
+            }
+            mp[digitsSum] = maxPair;
+            if(maxPair.first != 0 && maxPair.second != 0){
+                maxDigitSum = std::max(maxPair.first + maxPair.second, maxDigitSum);
+            }
+        }
+        return maxDigitSum;
+    }
+};
