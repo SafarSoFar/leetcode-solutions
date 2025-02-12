@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<string>> ans;
+    string s;
+    int n;
+    vector<vector<string>> partition(string s) {
+        this->s = s;
+        this->n = s.size();
+        partition(0, {});
+        return ans;
+
+    }
+
+    void partition(int i, vector<string> partit){
+        if(i >= n){
+            for(auto& str : partit){
+                if(!isPalindrome(str))
+                    return;
+            }
+            ans.push_back(partit);
+            return;
+        }
+        string str = "";
+        for(int x = i; x < n; x++){
+            str += s[x];
+            partit.push_back(str);
+            partition(x+1, partit);
+            partit.pop_back();
+            
+        }
+    }
+    bool isPalindrome(string s){
+        int n = s.size();
+        for(int i = 0; i <= n/2; i++){
+            if(s[i] != s[n-1-i])
+                return false;
+        }
+        return true;
+    }
+};
