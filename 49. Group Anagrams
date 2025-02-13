@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<map<char,int>, vector<string>> mp;
+        vector<vector<string>> ans;
+        for(auto& str : strs){
+            map<char,int> strMp;
+            for(int i = 0; i <str.size();i++){
+                strMp[str[i]]++;
+            }
+            
+            mp[strMp].push_back(str);
+        }
+        for(auto& [mp, vec] : mp){
+            vector<string> stringVec;
+            for(auto& v : vec){
+                stringVec.push_back(v);
+            }
+            ans.push_back(stringVec);
+        }
+        return ans;
+    }
+};
