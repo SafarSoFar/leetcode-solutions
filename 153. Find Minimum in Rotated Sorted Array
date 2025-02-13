@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int n;
+    int firstEl;
+    int ansMin;
+    int findMin(vector<int>& nums) {
+        this->n = nums.size();
+        firstEl = nums[0];
+        ansMin = nums[0];
+        binarySearch(nums, 0, n-1);
+        return ansMin;
+    }
+
+    void binarySearch(vector<int>& nums, int start, int end){
+        if(start > end)
+            return;
+
+        int mid = ((end-start)/2) + start;
+        
+        ansMin = std::min(nums[mid], ansMin);
+        if(nums[mid] >= firstEl)
+            return binarySearch(nums, mid+1, end);
+        else
+            return binarySearch(nums, start, mid-1);       
+        
+    }
+};
