@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    int minOperations(vector<int>& nums, int k) {
+        long x = 0;
+        long y = 0;
+        int count = 0;
+        priority_queue<long, vector<long>, greater<long>> q;
+        for(int i = 0; i < nums.size(); i++){
+            q.push(nums[i]);
+        }
+        while(q.size() >= 2){
+            
+            x = q.top();
+            q.pop();
+            y = q.top();
+            q.pop();
+            if(x >= k && y >= k)
+                return count;
+
+            count++;            
+            long val = min(x,y) * 2.0 + max(x,y);
+            
+            q.push(val);
+        }
+        return count;
+    }
+};
