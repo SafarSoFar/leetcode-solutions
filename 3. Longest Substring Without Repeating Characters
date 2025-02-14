@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int ans = 0;
+        unordered_set<char> charSet;
+        int left = 0;
+        for(int i = 0; i < s.size(); i++){
+            if(charSet.count(s[i])){
+                while(charSet.contains(s[i])){
+                    charSet.erase(s[left]);
+                    left++;
+                }
+            }
+            charSet.insert(s[i]);            
+            int size = charSet.size();
+            ans = std::max(size, ans);
+        }
+        return ans;
+    }
+};
