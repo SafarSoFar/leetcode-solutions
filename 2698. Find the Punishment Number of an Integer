@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int punishmentNumber(int n) {
+        for(int i = 1; i <= n; i++){
+            partition(i, std::to_string(i*i),0, {});
+        }
+        return ans;
+    }
+
+    void partition(int targetSum, string str,int i, vector<string> curPartition){
+        if(i >= str.size()){
+            int curSum = 0;
+                  
+            for(auto& part : curPartition){    
+                curSum += std::stoi(part);
+            }
+            
+            if(curSum == targetSum){
+                
+                int val = std::stoi(str);
+                if(aquired.count(val))
+                    return;
+
+                ans += val;
+                aquired.insert(val);
+            }
+                     
+            return;
+        }
+        string subStr = "";
+        for(int x = i; x < str.size(); x++){
+            subStr += str[x];
+            curPartition.push_back(subStr);
+            partition(targetSum, str, x+1, curPartition);
+            curPartition.pop_back();
+        }
+    }
+private:
+    int ans = 0;
+    unordered_set<int> aquired;
+};
