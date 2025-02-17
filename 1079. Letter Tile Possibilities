@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numTilePossibilities(string tiles) {
+        n = tiles.size();
+        vector<bool> vis(n);
+        backtracking(tiles, "", vis);
+
+        return ans.size();
+    }
+
+    void backtracking(string tiles, string cur, vector<bool> vis){
+        if(cur != "")
+            ans.insert(cur);
+
+        for(int i = 0; i < n; i++){
+            if(!vis[i]){
+                vis[i] = true;
+                backtracking(tiles, cur+tiles[i], vis);
+                vis[i] = false;
+            }
+        }
+    }
+private:
+    int n;
+    unordered_set<string> ans;
+};
