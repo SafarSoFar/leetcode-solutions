@@ -1,0 +1,48 @@
+class Solution {
+public:
+    string smallestNumber(string pattern) {
+        n = pattern.size();
+        this->pattern = pattern;
+        vector<bool> used(n+1);
+        for(int i = 0; i < n+1; i++){
+            ans += '9';
+        }
+        backtracking(used, "");
+        
+        return ans;
+    }
+
+
+    void backtracking(vector<bool> used, string cur){
+        if(cur.size() && !isValid(cur))
+            return;
+
+        if(cur.size() >= n+1){
+            ans = std::min(ans, cur);
+            return;
+        }
+
+        for(int i = 0; i < n+1; i++){
+            if(!used[i]){
+                used[i] = true;
+                char c = '0'+i+1;
+                backtracking(used,cur + c);
+                used[i] = false;
+            }
+        }
+    }
+
+    bool isValid(string str){
+        for(int i = 0;  i < str.size()-1; i++){
+            if(pattern[i] == 'I' && str[i] >= str[i+1])
+                return false;
+            else if(pattern[i] == 'D' && str[i] <= str[i+1])
+                return false;
+        }
+        return true;
+    }
+    private:
+        string pattern; 
+        int n;
+        string ans;
+};
