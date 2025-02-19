@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string getHappyString(int n, int k) {
+        backtracking("", n, -1);
+        string ans = "";
+        
+        for(auto & v : s){
+            k--;
+            if(k == 0)
+                ans = v;
+        }
+        return ans;
+    }
+
+    void backtracking(string cur, int n, int prev){
+        if(cur.size() == n){
+            s.insert(cur);
+            return;
+        }
+        for(int i = 0; i < 3; i++){
+            if(i != prev){
+                char next = 'a'+i;
+                int prevPrev = prev;
+                prev = i;
+                backtracking(cur + next, n,i);
+                prev = prevPrev;
+            }
+        }
+    }
+private:
+    set<string> s;
+};
