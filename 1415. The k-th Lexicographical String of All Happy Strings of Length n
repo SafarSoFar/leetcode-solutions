@@ -1,20 +1,21 @@
 class Solution {
 public:
     string getHappyString(int n, int k) {
+        count = k;
         backtracking("", n, -1);
-        string ans = "";
         
-        for(auto & v : s){
-            k--;
-            if(k == 0)
-                ans = v;
-        }
         return ans;
     }
 
     void backtracking(string cur, int n, int prev){
+        if(ans != "")
+            return;
+
         if(cur.size() == n){
-            s.insert(cur);
+            count--;
+            if(count == 0)
+                ans = cur;
+                
             return;
         }
         for(int i = 0; i < 3; i++){
@@ -28,5 +29,6 @@ public:
         }
     }
 private:
-    set<string> s;
+    int count;
+    string ans = "";
 };
