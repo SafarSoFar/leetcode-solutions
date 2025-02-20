@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int stringToNum(string str){
+        int val = 0;
+        for(int i = 0; i < str.size(); i++){
+            val *= 2;
+            if(str[i] == '1')
+                val++;
+        }
+        return val;
+    }
+
+    string findDifferentBinaryString(vector<string>& nums) {
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            int val = stringToNum(nums[i]);
+            numSet.insert(val);
+        }
+        backtracking(n, "");   
+        return ans;
+    }
+
+    void backtracking(int n, string cur){
+        if(ans != "")
+            return;
+
+        if(cur.size() >= n){
+            int val = stringToNum(cur);
+            if(!numSet.contains(val))
+                ans = cur;
+                
+            return;
+        }
+        backtracking(n, cur + '0');
+        backtracking(n, cur + '1');
+    }
+private:
+    unordered_set<int> numSet;
+    string ans = "";
+};
