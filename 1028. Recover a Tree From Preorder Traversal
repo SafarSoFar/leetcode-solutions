@@ -1,0 +1,87 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int n;
+    TreeNode* recoverFromPreorder(string traversal) {
+        /*map<int,vector<string>> mp;    
+        int scores = 0;
+        int n = traversal.size();
+        for(int i = 0; i < n; i++){
+            string strVal = "";
+            while(i < n && isdigit(traversal[i])){
+                strVal += traversal[i];
+                i++;
+            }
+            if(strVal != ""){
+                mp[scores].push_back(strVal);
+                scores = 1;
+            }
+            else
+                scores++;
+        }
+        for(auto& [key,val] : mp){
+            std::cout<<"key: "<<key<<'\n';
+            for(auto& v : val){
+                std::cout<<v<<' ';
+            }
+            std::cout<<'\n';
+        }
+        return nullptr;*/
+        TreeNode* root = new TreeNode();
+        int i = 0;
+        n = traversal.size();
+        string strVal = "";
+        while(i < n && isdigit(traversal[i])){
+            strVal += traversal[i];
+            i++;
+        }
+        root->val = stoi(strVal);
+        dfs(traversal, root, i, 0);
+        return root;
+    }
+
+    void dfs(string& traversal,TreeNode* node, int nextInd, int curLevel){
+        int score = 0;
+        for(int i = nextInd; i < n; i++){
+            string strVal = "";
+            while(i < n && isdigit(traversal[i])){
+                strVal += traversal[i];
+                i++;
+            }
+            if(strVal != ""){
+                if(score == curLevel)
+                    break;
+
+                if(score == curLevel+1){
+                    if(!node->left){
+                        node->left = new TreeNode(stoi(strVal));
+                        
+                        dfs(traversal, node->left, i, score);
+                    }
+                    else if(!node->right){
+                        node->right = new TreeNode(stoi(strVal));
+                       
+                        dfs(traversal, node->right, i, score);
+                    }
+                }
+                score = 1;
+            }
+            else
+                score++;
+        }
+    }
+
+
+
+    
+};
