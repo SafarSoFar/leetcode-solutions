@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums) {
+        int minSum = 0;
+        int maxSum = 0;
+        int cur = 0;
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            cur += nums[i];
+            if(cur < 0)
+                cur = 0;
+            maxSum = std::max(maxSum,cur);
+            minSum = std::min(minSum,cur);
+        }
+        cur = 0;
+        for(int i = 0; i < n; i++){
+            cur += nums[i];
+            if(cur > 0)
+                cur = 0;
+            minSum = std::min(minSum,cur);
+        }
+        return std::max(maxSum, abs(minSum));
+    }
+};
