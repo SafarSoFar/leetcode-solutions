@@ -1,0 +1,49 @@
+class Solution {
+public:
+    set<int> safeSet;
+    set<int> unsafeSet;
+    unordered_map<int, vector<int>> paths;
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n = graph.size();
+        for(int i = 0; i < n; i++){
+            if(graph[i].size() == 0){
+                safeSet.insert(i);
+                continue;
+            }
+            for(int j = 0; j < graph[i].size(); j++){
+                paths[i].push_back(graph[i][j]);
+            }
+        }
+        for(int i = 0; i < n; i++){
+            isSafeDFS(i, {});
+        }
+        vector<int> ans;
+        for(auto& val : safeSet){
+            ans.push_back(val);
+        }
+        return ans;
+    }
+
+    bool isSafeDFS(int ind, unordered_set<int> vis){
+        
+        if(safeSet.contains(ind))
+            return true;
+        if(vis.contains(ind) || unsafeSet.contains(ind)){
+            unsafeSet.insert(ind);
+            return false;
+        }
+            
+
+        vis.insert(ind);
+        for(int i = 0; i < paths[ind].size();i++){
+            if(!isSafeDFS(paths[ind][i], vis)){
+                unsafeSet.insert(paths[ind][i]);
+                return false;
+            }
+                
+        }
+        safeSet.insert(ind);
+        return true;
+    }
+ 
+};
