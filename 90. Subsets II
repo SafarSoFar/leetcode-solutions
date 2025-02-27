@@ -1,0 +1,29 @@
+class Solution {
+public:
+    set<vector<int>> s;
+    vector<vector<int>> ans;
+    vector<int> nums;
+    int n;
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        this->nums = nums;
+        n = nums.size();
+        backtracking(0, {});
+        return ans;
+    }
+
+    void backtracking(int ind, vector<int> cur){
+        if(!s.contains(cur)){
+            ans.push_back(cur);
+            s.insert(cur);
+        }
+        if(ind >= n){
+            return;
+        }
+        for(int i = ind; i < n; i++){
+            cur.push_back(nums[i]);
+            backtracking(i+1, cur);
+            cur.pop_back();
+        }
+    }
+};
