@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        int ans = INT_MAX;
+        int n = blocks.size();
+        for(int i = 0; i < n; i++){
+          int recolors = 0;
+          int curK = 0;
+          for(int j = i; j < n; j++){
+            if(blocks[j] == 'W')
+                recolors++;
+            curK++;
+            if(curK == k){     
+              ans = std::min(ans, recolors);
+              break;
+            }
+          }
+        }
+        return ans;
+    }
+};
