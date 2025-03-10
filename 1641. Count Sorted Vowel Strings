@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int ans = 0;
+    char v[5] = {'a','e','i','o','u'};
+    int countVowelStrings(int n) {
+        string cur = "";
+        backtracking(n, cur,0);
+        return ans;
+    }
+
+    void backtracking(int n, string& cur, int ind){
+        if(cur.size() == n){           
+            ans++;        
+            return;
+        }
+        for(int i = ind; i < 5; i++){
+            cur.push_back(v[i]);
+            backtracking(n, cur, i);
+            cur.pop_back();
+        }
+            
+    }
+};
