@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int n = s.size();
+        int ans = 0;
+        vector<queue<int>> pos(3);
+        for(int i = 0; i < n; i++){
+            pos[s[i]-'a'].push(i);
+        }
+        for(int i = 0; i < n; i++){
+            int maxInd = INT_MIN;
+            bool isValid = true;
+            for(int j = 0; j < 3; j++){
+                if(pos[j].size() == 0){
+                    isValid = false;
+                    break;
+                }
+                    
+                if(pos[j].front() < i){
+                    pos[j].pop();
+                }
+
+                if(pos[j].size() == 0){
+                    isValid = false;
+                    break;
+                }
+                    
+
+                int val = pos[j].front();
+                maxInd = std::max(val, maxInd);
+            }
+            if(maxInd != INT_MIN && isValid)
+                ans += n - maxInd; 
+        }
+        return ans;
+    }
+};
