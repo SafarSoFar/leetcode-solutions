@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int mostWordsFound(vector<string>& sentences) {
+        int ans = 0;
+        for(auto& sentence : sentences){
+            int cur = 0;
+            for(auto& ch : sentence){
+                if(ch == ' ')
+                    cur++;
+            }
+            ans = std::max(ans, cur+1);
+        }
+        return ans;
+    }
+};
