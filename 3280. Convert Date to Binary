@@ -1,0 +1,34 @@
+class Solution {
+public:
+    string convertDateToBinary(string date) {
+        string ans = "";
+        string year = "";
+        string month = "";
+        string day = "";
+        for(int i = 0; i < 4; i++){
+            year += date[i];
+        }
+        ans += toBinary(year) + '-';
+        for(int i = 4; i < 7; i++){
+            month += date[i];
+        }
+        ans += toBinary(month) + '-';
+        for(int i = 7; i < 10; i++){
+            day += date[i];
+        }
+        ans += toBinary(day);
+        return ans;
+
+    }
+
+    string toBinary(string str){
+        int num = std::stoi(str);
+        string binStr = "";
+        while(num){
+            binStr += num % 2 == 0 ? '0' : '1';
+            num /= 2;
+        }
+        std::reverse(binStr.begin(), binStr.end());
+        return binStr;
+    }
+};
