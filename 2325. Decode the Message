@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+        unordered_map<char,int> mp;
+        unordered_set<int> used;
+        string ans = "";
+        int p = 0;
+        int j = 0;
+        while(p < 26 && j < key.size()){
+            if(!used.contains(key[j]) && key[j] != ' '){
+                mp[key[j]] = p;
+                p++;
+                used.insert(key[j]);
+            }
+            j++;
+        }
+        for(int i = 0; i < message.size(); i++){
+            if(message[i] == ' ')
+                ans += ' ';
+            else
+                ans += 'a'+mp[message[i]];
+        }
+        return ans;
+    }
+};
