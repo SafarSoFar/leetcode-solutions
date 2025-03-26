@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string sortSentence(string s) {
+        vector<string> order(9, "");
+        string curWord = "";
+        string ans = "";
+        for (int i = 0; i < s.size(); i++) {
+            if (isdigit(s[i])) {
+                order[s[i] - '0'-1] = curWord;
+                curWord = "";
+            } else if(s[i] != ' ')
+                curWord += s[i];
+        }
+
+        for (int i = 0; i < 9; i++) {
+            if (order[i] != "") {
+                if(ans != "")
+                    ans += ' ';
+
+                ans += order[i];
+            }
+        }
+        return ans;
+    }
+};
