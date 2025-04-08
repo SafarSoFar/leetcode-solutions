@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        queue<int> q;
+        unordered_set<int> dupSet;
+        unordered_map<int,int> freqMp;
+        int count = 0;
+        for(int i = 0; i < nums.size(); i++){
+            q.push(nums[i]);
+            freqMp[nums[i]]++;
+            if(freqMp[nums[i]] > 1)
+                dupSet.insert(nums[i]);
+        }
+        while(dupSet.size()){        
+            for(int i = 0; i < 3 && q.size(); i++){
+                int cur = q.front();
+                q.pop();
+                
+                freqMp[cur]--;
+                if(freqMp[cur] == 1)
+                    dupSet.erase(cur);
+            }
+            count++;
+        }
+        
+        return count;
+    }
+};
