@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string triangleType(vector<int>& nums) {
+        if(nums[0] + nums[1] > nums[2]
+        && nums[0] + nums[2] > nums[1]
+        && nums[1] + nums[2] > nums[0]){
+            unordered_set<int> s;
+            for(int i = 0; i < 3; i++){
+                s.insert(nums[i]);
+            }
+            int n = s.size();
+            if(n == 3)  
+                return "scalene";
+            else if(n == 2)
+                return "isosceles";
+            else
+                return "equilateral";
+        }
+        return "none";
+    }
+};
