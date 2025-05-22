@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minNumber(vector<int>& nums1, vector<int>& nums2) {
+        int ans = INT_MAX;
+        for(int i = 0; i < nums1.size(); i++){
+            int cur = nums1[i]*10;
+            for(int j = 0; j < nums2.size(); j++){
+                if(nums1[i] == nums2[j])
+                    ans = std::min(ans, nums2[j]);
+                else
+                    ans = std::min(cur + nums2[j], ans);
+            }
+            
+        }
+        for(int i = 0; i < nums2.size(); i++){
+            int cur = nums2[i]*10;
+            for(int j = 0; j < nums1.size(); j++){
+                ans = std::min(cur + nums1[j], ans);
+            }
+        }
+        return ans;
+    }
+};
