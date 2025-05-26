@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int longestPalindrome(vector<string>& words) {
+        multiset<string> s;
+        int ans = 0;    
+        for(auto& word: words){
+            string rev = word;
+            reverse(rev.begin(), rev.end());
+            if(s.contains(rev)){
+                s.erase(s.find(rev));
+                ans+=4;
+            }          
+            else
+                s.insert(word);
+        }
+        for(auto& key : s){
+            if(key[0] == key[1])
+                return ans + 2;
+        }
+        return ans;
+    }
+};
