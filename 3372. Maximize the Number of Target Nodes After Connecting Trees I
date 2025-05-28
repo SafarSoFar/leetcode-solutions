@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> maxTargetNodes(vector<vector<int>>& edges1, vector<vector<int>>& edges2, int k) {
+        vector<vector<int>> connect(2, vector<int>());
+        unordered_map<int,vector<int>> t1;
+        unordered_map<int,vector<int>> t2;
+        vector<int> ans;
+        for(int i = 0; i < edges1.size(); i++){
+            t1[edges1[i][0]].push_back(edges1[i][1]);
+            t1[edges1[i][1]].push_back(edges1[i][0]);
+        }
+        for(int i = 0; i < edges2.size(); i++){
+            t2[edges2[i][0]].push_back(edges2[i][1]);
+            t2[edges2[i][1]].push_back(edges2[i][0]);
+        }
+        int t2Max = 0;
+        for(auto& [key, val] : t2){
+            int count = 0;
+            unordered_set<int> vis;
+            traverse(t2, vis, key, k-1, count);
+            t2Max = std::max(t2Max, count);
+            
+        }
+        for(int i = 0; i < t1.size(); i++){
+            int count = 0;
+            unordered_set<int> vis;
+            traverse(t1, vis, i, k, count);
+            ans.push_back(count+t2Max);
+        }
+        
+        
+        return ans;
+    }
+
+    void traverse(const unordered_map<int,vector<int>>& t, unordered_set<int>& vis, int curNode, int stepsLeft, int& count){
+        if(stepsLeft <= -1 || vis.contains(curNode))
+            return;
+        
+        count++;
+        
+        vis.insert(curNode);
+        for(const int &next : t.at(curNode)){
+            
+            traverse(t, vis, next, stepsLeft-1, count);
+        }
+    }
+};
