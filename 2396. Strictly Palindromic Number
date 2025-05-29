@@ -1,0 +1,7 @@
+class Solution {
+public:
+    bool isStrictlyPalindromic(int n) {
+        return false; // because (n-2) base always gives 12, which is not 
+        // a palindrome, the question is awful, yes 
+    }
+};
