@@ -1,0 +1,7 @@
+class Solution {
+public:
+    bool canWinNim(int n) {
+        return n % 4 != 0; // playing optimally, the opponent always
+        // needs to trap us eventually on the value 4
+    }
+};
