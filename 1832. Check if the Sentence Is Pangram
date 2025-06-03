@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        bool freq[26];
+        int count = 0;
+        for(auto& ch : sentence){
+            if(!freq[ch-'a']){
+                count++;
+                freq[ch-'a'] = true;
+            }
+        }
+        return count == 26;
+    }
+};
