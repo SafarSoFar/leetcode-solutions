@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> countPoints(vector<vector<int>>& points, vector<vector<int>>& queries) {
+        int n = queries.size();
+        vector<int> ans(n);
+        for(int i = 0; i < n; i++){
+            for(auto& point : points){
+                float d = sqrt(pow(queries[i][0]-point[0],2) + pow(queries[i][1]-point[1],2));               
+                if(d <= queries[i][2]){
+                    ans[i]++;
+                }
+            }
+        }
+        return ans;
+    }
+};
