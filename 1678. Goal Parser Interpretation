@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string interpret(string command) {
+        string ans {};
+        int n = command.size();
+        string cur {};
+        for(auto& ch : command){
+            if(cur == ""){
+                if(ch == '('){
+                    cur += ch;
+                }
+                else
+                    ans += ch;             
+            }      
+            else{
+                if(ch == ')'){
+                    cur += ch;
+                    if(cur == "()"){
+                        ans += 'o';
+                    }
+                    else if(cur == "(al)"){
+                        ans += "al";
+                    }
+                    cur = "";
+                }
+                else
+                    cur += ch;
+            }
+        }
+        return ans;
+    }
+};
