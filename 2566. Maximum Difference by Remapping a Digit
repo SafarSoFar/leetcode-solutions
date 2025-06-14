@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int minMaxDifference(int num) {
+        string numStr = std::to_string(num);
+        int n = numStr.size();
+        string minDiffStr(n,' ');
+        string maxDiffStr(n, ' ');
+        char maxDigToRemap = ' ';
+        char minDigToRemap = ' ';
+        for(int i = 0; i < n; i++){
+            if(maxDigToRemap == ' ' && numStr[i] != '9'){
+                maxDigToRemap = numStr[i];
+            }
+            if(numStr[i] == maxDigToRemap)
+                maxDiffStr[i] = '9';
+            else
+                maxDiffStr[i] = numStr[i];
+
+        }
+        
+        for(int i = 0; i < n; i++){
+            if(minDigToRemap == ' '){
+                minDigToRemap = numStr[i];
+            }
+            if(numStr[i] == minDigToRemap)
+                minDiffStr[i] = '0';
+            else
+                minDiffStr[i] = numStr[i];
+        }
+        return stoi(maxDiffStr)-stoi(minDiffStr);
+    }
+};
