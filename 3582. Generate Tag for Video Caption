@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string generateTag(string caption) {
+        string tag = "#";
+        bool hadSpace = false;
+        for(int i = 0; i < caption.size(); i++){
+            if(tag.size() == 100)
+                break;
+            if(caption[i] == ' '){
+                hadSpace = true;
+                continue;
+            }
+            if(tag == "#")
+                tag += tolower(caption[i]);
+            else if(hadSpace)
+                tag += toupper(caption[i]);
+            else
+                tag += tolower(caption[i]);
+
+            hadSpace = false;
+        }
+        return tag;
+    }
+};
