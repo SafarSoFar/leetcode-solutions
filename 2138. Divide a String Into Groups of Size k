@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<string> divideString(string s, int k, char fill) {
+        vector<string> ans;
+        size_t n = s.size();
+        size_t i =0;
+        while(i < n){
+            string str = "";
+            for(size_t j = 0; j < k; j++){
+                str += i >= n ? fill : s[i]; 
+                i++;
+            }
+            ans.push_back(str);
+        }
+        return ans;
+    }
+};
