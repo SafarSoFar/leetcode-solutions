@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string truncateSentence(string s, int k) {
+        int spaces = 0;
+        string ans{};
+        for(const char& ch: s){
+            if(ch == ' '){
+                spaces++;
+                if(spaces >= k)
+                    break;
+            }         
+            ans.push_back(ch);
+        }
+        return ans;
+    }
+};
