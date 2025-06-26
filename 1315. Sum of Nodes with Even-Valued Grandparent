@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    int ans = 0;
+    int sumEvenGrandparent(TreeNode* root) {
+        dfs(root, false, false);
+        return ans;
+    }
+
+    void dfs(const TreeNode* node, bool evenParent, bool evenGrandParent){
+        bool isEven = node->val % 2 == 0;
+        if(evenGrandParent)
+            ans += node->val;
+        if(node->left){
+            dfs(node->left, isEven, evenParent);
+        }
+        if(node->right){
+            dfs(node->right, isEven, evenParent);
+        }
+    }
+};
