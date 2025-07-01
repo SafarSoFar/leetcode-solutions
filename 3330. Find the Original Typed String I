@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int possibleStringCount(string word) {
+        int ans = 1;
+        char cur = ' ';
+        unordered_map<char,int> freq;
+        int n = word.size();
+        for(int i = 0; i < n; i++){
+            if(cur != word[i] || i == n-1){
+                if(i == n-1 && cur == word[i])
+                    freq[cur]++;
+
+                if(freq[cur] > 1)
+                    ans += freq[cur]-1;
+
+                cur = word[i];
+                freq[cur] = 1;
+            }
+            else freq[cur]++; 
+        }
+        
+        return ans;
+    }
+};
