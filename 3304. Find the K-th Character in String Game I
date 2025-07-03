@@ -1,0 +1,15 @@
+class Solution {
+public:
+    char kthCharacter(int k) {
+        string str = "a";
+        while(str.size() < k){
+            string cur = str;
+            for(const char&  ch : str){
+                cur += (ch+1-'a')%26+'a';
+            }
+            
+            str = cur;
+        }
+        return str[k-1];
+    }
+};
