@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string firstPalindrome(vector<string>& words) {
+        for(const string& word : words){
+            string rev = word;
+            reverse(rev.begin(), rev.end());
+            if(rev == word)
+                return word;
+        }
+        return "";
+    }
+};
